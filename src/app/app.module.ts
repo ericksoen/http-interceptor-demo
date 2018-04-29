@@ -7,11 +7,16 @@ import { DataService } from './data.service';
 import { InterceptorService } from './interceptor.service';
 import { RouterModule, Routes, Router } from '@angular/router';
 import { AppComponent } from './app.component';
+import { UnauthorizeComponent } from './unauthorize.component';
 
 const routes: Routes = [
   {
     path: 'home',
     component: HomeComponent
+  },
+  {
+    path: 'unauthorized',
+    component: UnauthorizeComponent,
   },
   {
       path: '',
@@ -23,7 +28,8 @@ const routes: Routes = [
 @NgModule({
   declarations: [
     HomeComponent,
-    AppComponent
+    AppComponent,
+    UnauthorizeComponent
   ],
   imports: [
     BrowserModule,
