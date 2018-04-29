@@ -4,7 +4,7 @@ import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 
 import { AppComponent } from './app.component';
 import { DataService } from './data.service';
-
+import { InterceptorService } from './interceptor.service';
 @NgModule({
   declarations: [
     AppComponent
@@ -15,6 +15,11 @@ import { DataService } from './data.service';
   ],
   providers: [
     DataService,
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: InterceptorService,
+      multi: true
+    }
   ],
   bootstrap: [AppComponent]
 })
