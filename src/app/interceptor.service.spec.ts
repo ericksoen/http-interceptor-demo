@@ -1,4 +1,4 @@
-import { TestBed, inject } from '@angular/core/testing';
+import { TestBed, inject, fakeAsync } from '@angular/core/testing';
 
 import { InterceptorService } from './interceptor.service';
 import { HttpTestingController, HttpClientTestingModule } from '@angular/common/http/testing';
@@ -56,5 +56,19 @@ describe('InterceptorService', () => {
       req.flush({hello: 'world'});
       httpMock.verify();
     });
+
+    it('should navigate to unauthorized component', fakeAsync(() => {
+      http.get('/data').subscribe(() => {},
+      err => {
+        expect(err).toBeTruthy();
+        expect(mockRouter.navigate).toHaveBeenCalledWith(['/unauthorized']);
+      });
+
+      // Expect a single mock request to have been made to the appropriate URL
+      const req = httpMock.expectOne('/data');
+
+      req.flush({}, {status: 401, statusText: 'Unauthorized'});
+      httpMock.verify();
+    }));
   });
 });
