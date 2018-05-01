@@ -8,6 +8,7 @@ import { InterceptorService } from './interceptor.service';
 import { RouterModule, Routes, Router } from '@angular/router';
 import { AppComponent } from './app.component';
 import { UnauthorizeComponent } from './unauthorize.component';
+import { ApplicationInsightsLoggerService } from './application-insights-logger.service';
 
 const routes: Routes = [
   {
@@ -38,6 +39,7 @@ const routes: Routes = [
   ],
   providers: [
     DataService,
+    ApplicationInsightsLoggerService,
     {
       provide: HTTP_INTERCEPTORS,
       useClass: InterceptorService,

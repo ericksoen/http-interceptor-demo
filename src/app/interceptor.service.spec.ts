@@ -4,7 +4,7 @@ import { InterceptorService } from './interceptor.service';
 import { HttpTestingController, HttpClientTestingModule } from '@angular/common/http/testing';
 import { Router } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
-
+import { ApplicationInsightsLoggerService } from './application-insights-logger.service';
 import { HttpClient, HTTP_INTERCEPTORS } from '@angular/common/http';
 
 describe('InterceptorService', () => {
@@ -23,6 +23,7 @@ describe('InterceptorService', () => {
         RouterTestingModule.withRoutes([]),
       ],
       providers: [
+        ApplicationInsightsLoggerService,
         {
           provide: HTTP_INTERCEPTORS,
           useClass: InterceptorService,
@@ -54,7 +55,6 @@ describe('InterceptorService', () => {
 
       expect(req.request.headers.get('Authorization')).toEqual('Bearer MockJwtToken');
       req.flush({hello: 'world'});
-      httpMock.verify();
     });
 
     it('should navigate to unauthorized component', fakeAsync(() => {
@@ -68,7 +68,6 @@ describe('InterceptorService', () => {
       const req = httpMock.expectOne('/data');
 
       req.flush({}, {status: 401, statusText: 'Unauthorized'});
-      httpMock.verify();
     }));
   });
 });
